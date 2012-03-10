@@ -8,20 +8,47 @@
    var textrange = {
       /**
        * $().textrange() or $().textrange('get')
+       * Retrieves an object containing the start and end location of the text range, the length of the range and the
+       * substring of the range.
+       *
+       * @param (optional) property 
+       * @return The object or 
        */
-      get: function() {
+      get: function(property) {
+         var properties = {}
+
+         if('selectionStart' in this[0]) {
+            properties.position = this[0].selectionStart;
+            properties.start = this[0].selectionStart;
+            properties.end = this[0].selectionEnd;
+            properties.length = properties.end - properties.start;
+            properties.text = this.val().substring(properties.start, properties.end);
+         }
+
+         return typeof property === 'undefined' ? properties : properties[property];
       },
 
       /**
        * $().textrange('set')
+       * Sets the selected text of an object by specifying the start and end of the selection.
+       *
+       * @param start The starting position of the selection, or the position of the cursor, if end is not given.
+       * @param (optional) end The ending position of the selection.
        */
-      set: function() {
+      set: function(start, end) {
+         
+
+         return this;
       },
 
       /**
        * $().textrange('replace')
+       * Replaces the selected text in 
        */
-      replace: function() {
+      replace: function(text) {
+         
+
+         return this;
       }
    };
 

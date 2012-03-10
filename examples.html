@@ -5,8 +5,93 @@
 <title>jquery-textrange</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="jquery-textrange.js"></script>
+<style>
+body {
+   background:#0f0f0f;
+   margin:0;
+}
+body > div {
+   float:left;
+   background:#fff;
+   margin:30px 0 30px 30px;
+   padding:20px;
+}
+#info {
+   width:200px;
+}
+#info code {
+   display:block;
+   margin:10px 0;
+}
+#info .line {
+   display:block;
+}
+#info .property {
+   margin-left:30px;
+}
+#textarea {
+   display:block;
+   width:300px;
+   height:90px;
+}
+#char-start,
+#char-end {
+   width:40px;
+}
+</style>
+<script>
+$(document).ready(function() {
+   $('#textarea').bind('keyup mousedown mousemove mouseup', function() {
+      var range = $(this).textrange();
+
+      $('#info .property').each(function() {
+         if(typeof range[$(this).attr('id')] !== 'undefined') {
+            if($(this).attr('id') === 'text') {
+               range[$(this).attr('id')] = range[$(this).attr('id')].replace(/\n/g, "<br />").replace(/\'/g, "\\'")
+            }
+
+            $(this).children('.value').html(range[$(this).attr('id')]);
+         }
+      });
+   });
+
+   $('#console-log').click(function() {
+      var obj = {};
+
+      $('#info .property').each(function() {
+         var value = $(this).children('.value').html()
+         obj[$(this).attr('id')] = isNaN(value) ? value : parseInt(value);
+      });
+
+      console.log(obj);
+
+      return false;
+   });
+
+});
+</script>
 </head>
 <body>
-
+<div id="fields">
+<textarea id="textarea" name="textarea">
+Some more content.
+Isn't this cool?
+This time with a few lines of content.
+Yaaay.
+</textarea>
+</div>
+<div id="info">
+<strong>Object returned:</strong>
+<code>
+<span class="line">{</span>
+<span id="position" class="property line">position: <span class="value">0</span>,</span>
+<span id="start" class="property line">start: <span class="value">0</span>,</span>
+<span id="end" class="property line">end: <span class="value">0</span>,</span>
+<span id="length" class="property line">length: <span class="value">0</span>,</span>
+<span id="text" class="property line">text: '<span class="value"></span>'</span>
+<span class="line">}</span>
+</code>
+<input type="button" id="console-log" name="console-log" value="console.log() this bad boy">
+</div>
 </body>
 </html>
