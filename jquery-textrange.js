@@ -36,7 +36,10 @@
        * @param (optional) end The ending position of the selection.
        */
       set: function(start, end) {
-         
+         if('selectionStart' in this[0]) {
+            this[0].selectionStart = start;
+            this[0].selectionEnd = end;
+         }
 
          return this;
       },

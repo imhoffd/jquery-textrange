@@ -41,7 +41,7 @@ body > div {
 </style>
 <script>
 $(document).ready(function() {
-   $('#textarea').bind('keyup mousedown mousemove mouseup', function() {
+   $('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function() {
       var range = $(this).textrange();
 
       $('#info .property').each(function() {
@@ -68,6 +68,9 @@ $(document).ready(function() {
       return false;
    });
 
+   $('#selection-set').click(function() {
+      $('#textarea').textrange('set', $('#char-start').val(), $('#char-end').val()).trigger('updateInfo').focus();
+   });
 });
 </script>
 </head>
@@ -92,6 +95,9 @@ Yaaay.
 <span class="line">}</span>
 </code>
 <input type="button" id="console-log" name="console-log" value="console.log() this bad boy">
+</div>
+<div>
+Select a substring starting at <input type="text" id="char-start" name="char-start" value="5"> and ending at <input type="text" id="char-end" name="char-end" value="20">. <input type="button" id="selection-set" name="selection-set" value="Go!!">
 </div>
 </body>
 </html>
