@@ -6,4 +6,4 @@ This jQuery plugin is for easily finding the starting and ending positions of se
 * [$().textrange('replace')](https://github.com/dwieeb/jquery-textrange/wiki/Replace)
 
 ## Demo
-* http://jsfiddle.net/F29Qz/
+* http://dwieeb.github.com/jquery-textrange/
