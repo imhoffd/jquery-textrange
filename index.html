@@ -1,37 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<head>
+<meta charset="UTF-8">
+<title>jquery-textrange</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="jquery-textrange.js"></script>
+<style>
+body, h1 { margin:0; }
+body { background:#0f0f0f; font:normal 14px Georgia, "Times New Roman", Times, serif; width:700px; margin:0 auto; }
+body > div { float:left; background:#fff; padding:20px; border-left: 4px solid #fa4500; }
+a, a:link, a:visited, a:hover, a:active, a:focus { text-decoration:none; color:#fff; }
+a:hover, a:active, a:focus { text-decoration:underline; }
+h1 { border-left: 4px solid #fa4500; padding:0 0 4px 9px; }
+body > div, h1 { margin:30px 0 0 30px; }
+span.description { display:block; margin:2px 0 0 46px; }
+span.copyright { float:right; color:#fff; margin-right:30px; }
+#info { width:200px; }
+#info code { display:block; margin:10px 0; }
+#info .line { display:block; }
+#info .property { margin-left:30px; }
+#textarea { display:block; width:300px; height:90px; }
+#char-start, #char-end { width:40px; }
+#links { width:580px; text-align:center; }
+#links a { display:inline-block; background:#000; border-radius: 40px; margin:0 10px; padding:10px 20px; }
+#links a:hover, #links a:active, #links a:focus { background:#fa4500; }
+</style>
+<script>
+$(document).ready(function() {
+   var orange = false;
+   setInterval(function() {
+      orange = !orange;
+      $('h1').css('border-color', orange ? 'transparent' : '#fa4500');
+   }, 500);
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+   $('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function() {
+      var range = $(this).textrange();
 
-    <title>Jquery-textrange by dwieeb</title>
-  </head>
+      $('#info .property').each(function() {
+         if(typeof range[$(this).attr('id')] !== 'undefined') {
+            if($(this).attr('id') === 'text') {
+               range[$(this).attr('id')] = range[$(this).attr('id')].replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+            }
 
-  <body>
+            $(this).children('.value').html(range[$(this).attr('id')]);
+         }
+      });
+   });
 
-    <header>
-      <div class="container">
-        <h1>Jquery-textrange</h1>
-        <h2>A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.</h2>
+   $('#console-log').click(function() {
+      var obj = {};
 
-        <section id="downloads">
-          <a href="https://github.com/dwieeb/jquery-textrange/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/dwieeb/jquery-textrange/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/dwieeb/jquery-textrange" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+      $('#info .property').each(function() {
+         var value = $(this).children('.value').html();
+         obj[$(this).attr('id')] = isNaN(value) || value == '' ? value : parseInt(value);
+      });
 
-    <div class="container">
-      <section id="main_content">
-        <p>:o</p>
-      </section>
-    </div>
+      console.log(obj);
 
-    
-  </body>
+      return false;
+   });
+
+   $('#selection-set').click(function() {
+      $('#textarea').textrange('set', $('#char-start').val(), $('#char-end').val()).trigger('updateInfo').focus();
+   });
+
+   $('#selection-replace').click(function() {
+      $('#textarea').textrange('replace', $('#replace-text').val()).trigger('updateInfo').focus();
+   });
+});
+</script>
+</head>
+<body>
+<h1><a href="https://github.com/dwieeb/jquery-textrange/">jquery-textrange</a></h1>
+<span class="copyright"><a href="http://www.danielimhoff.com">created by Daniel Imhoff</a></span>
+<span class="description"><a href="https://github.com/dwieeb/jquery-textrange/wiki/">See the wiki for all features and documentation.</a></span>
+<div id="fields">
+<textarea id="textarea" name="textarea">Some more content.
+Isn't this cool?
+This time with a few lines of content.
+Yaaay.</textarea>
+</div>
+<div id="info">
+<strong>Object returned:</strong>
+<code>
+<span class="line">{</span>
+<span id="position" class="property line">position: <span class="value">0</span>,</span>
+<span id="start" class="property line">start: <span class="value">0</span>,</span>
+<span id="end" class="property line">end: <span class="value">0</span>,</span>
+<span id="length" class="property line">length: <span class="value">0</span>,</span>
+<span id="text" class="property line">text: "<span class="value"></span>"</span>
+<span class="line">}</span>
+</code>
+<input type="button" id="console-log" name="console-log" value="console.log() this bad boy">
+</div>
+<div>
+Select a substring starting at <input type="text" id="char-start" name="char-start" value="30"> and ending at <input type="text" id="char-end" name="char-end" value="55"> <input type="button" id="selection-set" name="selection-set" value="Go!!">
+</div>
+<div>
+Replace the selected text with: <input type="text" id="replace-text" name="replace-text" value="some text"> <input type="button" id="selection-replace" name="selection-replace" value="Go!!">
+</div>
+<div id="links">
+<a href="https://github.com/dwieeb/jquery-textrange/zipball/master">Download .zip</a>
+<a href="https://github.com/dwieeb/jquery-textrange/tarball/master">Download .tar</a>
+<a href="https://github.com/dwieeb/jquery-textrange">View on github</a>
+</div>
+</body>
 </html>
