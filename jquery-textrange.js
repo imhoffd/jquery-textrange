@@ -30,16 +30,13 @@
       set: function(start, end) {
          if(typeof start === 'undefined') {
             start = 0;
-         }
-         else if(start === 'all') {
-            start = 0;
-            end = 'end';
+            end = -1;
          }
 
          if(typeof end === 'undefined') {
             end = start;
          }
-         else if(end === 'end') {
+         else if(end === -1) {
             end = this.val().length;
          }
 
