@@ -68,6 +68,7 @@
    var _textrange = {
       xul: {
          get: function(property) {
+            this[0].focus();
             var props = {
                position: this[0].selectionStart,
                start: this[0].selectionStart,
@@ -80,11 +81,13 @@
          },
 
          set: function(start, end) {
+            this[0].focus();
             this[0].selectionStart = start;
             this[0].selectionEnd = end;
          },
 
          replace: function(text) {
+            this[0].focus();
             var start = this[0].selectionStart;
             this.val(this.val().substring(0, this[0].selectionStart) + text + this.val().substring(this[0].selectionEnd, this.val().length));
             this[0].selectionStart = start;
