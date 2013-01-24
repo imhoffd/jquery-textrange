@@ -19,19 +19,13 @@
   "version": "1.0.0",
   "author": {
     "name": "Daniel Imhoff",
+    "email": "dwieeb@gmail.com",
     "url": "http://www.danielimhoff.com"
   },
-  "maintainers": [
-    {
-      "name": "Daniel Imhoff",
-      "email": "dwieeb@gmail.com",
-      "url": "http://www.danielimhoff.com"
-    }
-  ],
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/dwieeb/jquery-textrange/blob/master/LICENSE"
+      "url": "https://raw.github.com/dwieeb/jquery-textrange/master/LICENSE"
     }
   ],
   "bugs": "",
