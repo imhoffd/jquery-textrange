@@ -1,0 +1,44 @@
+{
+  "name": "textrange",
+  "title": "jQuery TextRange",
+  "description": "jQuery plugin for getting, setting, and replacing the selected text in input fields and textareas.",
+  "keywords": [
+    "text",
+    "range",
+    "caret",
+    "cursor",
+    "textrange",
+    "select",
+    "highlight",
+    "selection",
+    "field",
+    "input",
+    "textarea",
+    "replace"
+  ],
+  "version": "1.0",
+  "author": {
+    "name": "Daniel Imhoff",
+    "url": "http://www.danielimhoff.com"
+  },
+  "maintainers": [
+    {
+      "name": "Daniel Imhoff",
+      "email": "dwieeb@gmail.com",
+      "url": "http://www.danielimhoff.com"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dwieeb/jquery-textrange/blob/master/LICENSE"
+    }
+  ],
+  "bugs": "",
+  "homepage": "http://dwieeb.github.com/jquery-textrange",
+  "docs": "https://github.com/dwieeb/jquery-textrange/wiki",
+  "demo": "http://dwieeb.github.com/jquery-textrange",
+  "dependencies": {
+    "jquery": ">=1.4.4"
+  }
+}
