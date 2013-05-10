@@ -1,0 +1,14 @@
+{
+  "name": "jquery-textrange",
+  "version": "1.0.1",
+  "main": "jquery-textrange.js",
+  "dependencies": {
+    "jquery": ">=1.3"
+  },
+  "ignore": [
+    "LICENSE",
+    "README.md",
+    "demo.html",
+    "textrange.jquery.json"
+  ]
+}
