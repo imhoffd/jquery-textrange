@@ -16,7 +16,7 @@
     "textarea",
     "replace"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Daniel Imhoff",
     "email": "dwieeb@gmail.com",
@@ -33,6 +33,6 @@
   "docs": "https://github.com/dwieeb/jquery-textrange/wiki",
   "demo": "http://dwieeb.github.com/jquery-textrange",
   "dependencies": {
-    "jquery": ">=1.4.4"
+    "jquery": ">=1.3"
   }
 }
