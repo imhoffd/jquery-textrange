@@ -32,12 +32,15 @@
             start = 0;
             end = -1;
          }
+		 else if(start < 0) {
+			 start = parseInt(start) + this.val().length + 1;
+		 }
 
          if(typeof end === 'undefined') {
             end = start;
          }
-         else if(end === -1) {
-            end = this.val().length;
+         else if(end < 0) {
+            end = parseInt(end) + this.val().length + 1;
          }
 
          _textrange[browserType].set.apply(this, [start, end]);
