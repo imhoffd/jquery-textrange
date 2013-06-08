@@ -3,6 +3,7 @@ This jQuery plugin is for easily finding the starting and ending positions of se
 ## Methods
 * [$().textrange('get')](https://github.com/dwieeb/jquery-textrange/wiki/Get)
 * [$().textrange('set')](https://github.com/dwieeb/jquery-textrange/wiki/Set)
+* [$().textrange('setcursor')](https://github.com/dwieeb/jquery-textrange/wiki/SetCursor)
 * [$().textrange('replace')](https://github.com/dwieeb/jquery-textrange/wiki/Replace)
 
 ## Demo
