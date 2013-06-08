@@ -1,178 +1,208 @@
 /**
  * jquery-textrange
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
+ * See the [wiki](https://github.com/dwieeb/jquery-textrange/wiki) for usage and examples.
  *
- * (c) 2012 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
+ * (c) 2013 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
 (function($) {
-   var browserType;
+	var browserType,
 
-   var textrange = {
-      /**
-       * $().textrange() or $().textrange('get')
-       * Retrieves an object containing the start and end location of the text range, the length of the range and the
-       * substring of the range.
-       *
-       * @param (optional) property 
-       * @return An object of properties including position, start, end, length, and text or a specific property.
-       */
-      get: function(property) {
-         return _textrange[browserType].get.apply(this, [property]);
-      },
+	textrange = {
 
-      /**
-       * $().textrange('set')
-       * Sets the selected text of an object by specifying the start and end of the selection.
-       *
-       * @param start The starting position of the selection, or the position of the cursor, if end is not given.
-       * @param (optional) end The ending position of the selection.
-       */
-      set: function(start, end) {
-         if(typeof start === 'undefined') {
-            start = 0;
-         }
-         else if(start === 'all') {
-            start = 0;
-            end = 'end';
-         }
+		/**
+		 * $().textrange() or $().textrange('get')
+		 *
+		 * Retrieves an object containing the start and end location of the text range, the length of the range and the
+		 * substring of the range.
+		 *
+		 * @param (optional) property
+		 * @return An object of properties including position, start, end, length, and text or a specific property.
+		 */
+		get: function(property) {
+			return _textrange[browserType].get.apply(this, [property]);
+		},
 
-         if(typeof end === 'undefined') {
-            end = start;
-         }
-         else if(end === 'end') {
-            end = this.val().length;
-         }
+		/**
+		 * $().textrange('set')
+		 *
+		 * Sets the selected text of an object by specifying the start and length of the selection.
+		 *
+		 * The start and length parameters are identical to PHP's substr() function with the following changes:
+		 *  - excluding start will select all the text in the field.
+		 *  - passing 0 for length will set the cursor at start. See $().textrange('setcursor')
+		 *
+		 * @param (optional) start
+		 * @param (optional) length
+		 *
+		 * @see http://php.net/manual/en/function.substr.php
+		 */
+		set: function(start, length) {
+			var s = parseInt(start),
+			    l = parseInt(length),
+			    e;
 
-         _textrange[browserType].set.apply(this, [start, end]);
+			if (typeof start === 'undefined') {
+				s = 0;
+			}
+			else if (start < 0) {
+				s = this.val().length + s;
+			}
 
-         return this;
-      },
+			if (typeof length === 'undefined') {
+				e = this.val().length;
+			}
+			else if (length >= 0) {
+				e = s + l;
+			}
+			else {
+				e = this.val().length + l;
+			}
 
-      /**
-       * $().textrange('replace')
-       * Replaces the selected text in the input field or textarea with text.
-       *
-       * @param text The text to replace the selection with.
-       */
-      replace: function(text) {
-         _textrange[browserType].replace.apply(this, [text]);
+			_textrange[browserType].set.apply(this, [s, e]);
 
-         return this;
-      },
+			return this;
+		},
 
-      /**
-       * Alias for $().textrange('replace')
-       */
-      insert: function(text) {
-         return this.textrange('replace', text);
-      }
-   };
+		/**
+		 * $().textrange('setcursor')
+		 *
+		 * Sets the cursor at a position of the text field.
+		 *
+		 * @param position
+		 */
+		setcursor: function(position) {
+			return this.textrange('set', position, 0);
+		},
 
-   var _textrange = {
-      xul: {
-         get: function(property) {
-            var props = {
-               position: this[0].selectionStart,
-               start: this[0].selectionStart,
-               end: this[0].selectionEnd,
-               length: this[0].selectionEnd - this[0].selectionStart,
-               text: this.val().substring(this[0].selectionStart, this[0].selectionEnd)
-            };
+		/**
+		 * $().textrange('replace')
+		 * Replaces the selected text in the input field or textarea with text.
+		 *
+		 * @param text The text to replace the selection with.
+		 */
+		replace: function(text) {
+			_textrange[browserType].replace.apply(this, [text]);
 
-            return typeof property === 'undefined' ? props : props[property];
-         },
+			return this;
+		},
 
-         set: function(start, end) {
-            this[0].selectionStart = start;
-            this[0].selectionEnd = end;
-         },
+		/**
+		 * Alias for $().textrange('replace')
+		 */
+		insert: function(text) {
+			return this.textrange('replace', text);
+		}
+	},
 
-         replace: function(text) {
-            var start = this[0].selectionStart;
-            this.val(this.val().substring(0, this[0].selectionStart) + text + this.val().substring(this[0].selectionEnd, this.val().length));
-            this[0].selectionStart = start;
-            this[0].selectionEnd = start + text.length;
-         }
-      },
+	_textrange = {
+		xul: {
+			get: function(property) {
+				this[0].focus();
+				var props = {
+					position: this[0].selectionStart,
+					start: this[0].selectionStart,
+					end: this[0].selectionEnd,
+					length: this[0].selectionEnd - this[0].selectionStart,
+					text: this.val().substring(this[0].selectionStart, this[0].selectionEnd)
+				};
 
-      msie: {
-         get: function(property) {
-            this[0].focus();
+				return typeof property === 'undefined' ? props : props[property];
+			},
 
-            var range = document.selection.createRange();
+			set: function(start, end) {
+				this[0].focus();
+				this[0].selectionStart = start;
+				this[0].selectionEnd = end;
+			},
 
-            if(typeof range === 'undefined') {
-               return {
-                  position: 0,
-                  start: 0,
-                  end: this[0].val().length,
-                  length: this[0].val().length,
-                  text: this.val()
-               };
-            }
+			replace: function(text) {
+				this[0].focus();
+				var start = this[0].selectionStart;
+				this.val(this.val().substring(0, this[0].selectionStart) + text + this.val().substring(this[0].selectionEnd, this.val().length));
+				this[0].selectionStart = start;
+				this[0].selectionEnd = start + text.length;
+			}
+		},
 
-            var rangetext = this[0].createTextRange();
-            var rangetextcopy = rangetext.duplicate();
+		msie: {
+			get: function(property) {
+				this[0].focus();
 
-            rangetext.moveToBookmark(range.getBookmark());
-            rangetextcopy.setEndPoint('EndToStart', rangetext);
+				var range = document.selection.createRange();
 
-            return {
-               position: rangetextcopy.text.length,
-               start: rangetextcopy.text.length,
-               end: rangetextcopy.text.length + range.text.length,
-               length: range.text.length,
-               text: range.text
-            };
-         },
+				if (typeof range === 'undefined') {
+					return {
+						position: 0,
+						start: 0,
+						end: this[0].val().length,
+						length: this[0].val().length,
+						text: this.val()
+					};
+				}
 
-         set: function(start, end) {
-            this[0].focus();
+				var rangetext = this[0].createTextRange();
+				var rangetextcopy = rangetext.duplicate();
 
-            var range = this[0].createTextRange();
+				rangetext.moveToBookmark(range.getBookmark());
+				rangetextcopy.setEndPoint('EndToStart', rangetext);
 
-            if(typeof range === 'undefined') {
-               return this;
-            }
+				return {
+					position: rangetextcopy.text.length,
+					start: rangetextcopy.text.length,
+					end: rangetextcopy.text.length + range.text.length,
+					length: range.text.length,
+					text: range.text
+				};
+			},
 
-            if(typeof start !== 'undefined') {
-               range.moveStart('character', start);
-               range.collapse();
-            }
+			set: function(start, end) {
+				this[0].focus();
 
-            if(typeof end !== 'undefined') {
-               range.moveEnd('character', end - start);
-            }
+				var range = this[0].createTextRange();
 
-            range.select();
-         },
+				if (typeof range === 'undefined') {
+					return this;
+				}
 
-         replace: function(text) {
-            this[0].focus();
+				if (typeof start !== 'undefined') {
+					range.moveStart('character', start);
+					range.collapse();
+				}
 
-            document.selection.createRange().text = text;
-         }
-      }
-   };
+				if (typeof end !== 'undefined') {
+					range.moveEnd('character', end - start);
+				}
 
-   $.fn.textrange = function(method) {
-      if(typeof browserType === 'undefined') {
-         browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
-      }
+				range.select();
+			},
 
-      // I don't know how to support this browser. :c
-      if(browserType === 'unknown') {
-         return this;
-      }
+			replace: function(text) {
+				this[0].focus();
 
-      if(typeof method === 'undefined' || typeof method !== 'string') {
-         return textrange.get.apply(this);
-      }
-      else if(typeof textrange[method] === 'function') {
-         return textrange[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      }
-      else {
-         $.error("Method " + method + " does not exist in jQuery.textrange");
-      }
-   };
+				document.selection.createRange().text = text;
+			}
+		}
+	};
+
+	$.fn.textrange = function(method) {
+		if (typeof browserType === 'undefined') {
+			browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
+		}
+
+		// I don't know how to support this browser. :c
+		if (browserType === 'unknown') {
+			return this;
+		}
+
+		if (typeof method === 'undefined' || typeof method !== 'string') {
+			return textrange.get.apply(this);
+		}
+		else if (typeof textrange[method] === 'function') {
+			return textrange[method].apply(this, Array.prototype.slice.call(arguments, 1));
+		}
+		else {
+			$.error("Method " + method + " does not exist in jQuery.textrange");
+		}
+	};
 })(jQuery);
