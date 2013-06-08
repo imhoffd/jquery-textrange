@@ -27,46 +27,47 @@ span.copyright { float:right; color:#fff; margin-right:30px; }
 </style>
 <script>
 $(document).ready(function() {
-   var orange = false;
-   setInterval(function() {
-      orange = !orange;
-      $('h1').css('border-color', orange ? 'transparent' : '#fa4500');
-   }, 500);
+	var orange = false;
 
-   $('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function() {
-      var range = $(this).textrange();
+	setInterval(function() {
+		orange = !orange;
+		$('h1').css('border-color', orange ? 'transparent' : '#fa4500');
+	}, 500);
 
-      $('#info .property').each(function() {
-         if(typeof range[$(this).attr('id')] !== 'undefined') {
-            if($(this).attr('id') === 'text') {
-               range[$(this).attr('id')] = range[$(this).attr('id')].replace(/\n/g, "\\n").replace(/\r/g, "\\r");
-            }
+	$('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function() {
+		var range = $(this).textrange();
 
-            $(this).children('.value').html(range[$(this).attr('id')]);
-         }
-      });
-   });
+		$('#info .property').each(function() {
+			if (typeof range[$(this).attr('id')] !== 'undefined') {
+				if ($(this).attr('id') === 'text') {
+					range[$(this).attr('id')] = range[$(this).attr('id')].replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+				}
 
-   $('#console-log').click(function() {
-      var obj = {};
+				$(this).children('.value').html(range[$(this).attr('id')]);
+			}
+		});
+	});
 
-      $('#info .property').each(function() {
-         var value = $(this).children('.value').html();
-         obj[$(this).attr('id')] = isNaN(value) || value == '' ? value : parseInt(value);
-      });
+	$('#console-log').click(function() {
+		var obj = {};
 
-      console.log(obj);
+		$('#info .property').each(function() {
+			var value = $(this).children('.value').html();
+			obj[$(this).attr('id')] = isNaN(value) || value == '' ? value : parseInt(value);
+		});
 
-      return false;
-   });
+		console.log(obj);
 
-   $('#selection-set').click(function() {
-      $('#textarea').textrange('set', $('#char-start').val(), $('#char-end').val()).trigger('updateInfo').focus();
-   });
+		return false;
+	});
 
-   $('#selection-replace').click(function() {
-      $('#textarea').textrange('replace', $('#replace-text').val()).trigger('updateInfo').focus();
-   });
+	$('#selection-set').click(function() {
+		$('#textarea').textrange('set', $('#char-start').val(), $('#char-end').val()).trigger('updateInfo').focus();
+	});
+
+	$('#selection-replace').click(function() {
+		$('#textarea').textrange('replace', $('#replace-text').val()).trigger('updateInfo').focus();
+	});
 });
 </script>
 </head>
@@ -94,7 +95,7 @@ Yaaay.</textarea>
 <input type="button" id="console-log" name="console-log" value="console.log() this bad boy">
 </div>
 <div>
-Select a substring starting at <input type="text" id="char-start" name="char-start" value="30"> and ending at <input type="text" id="char-end" name="char-end" value="55"> <input type="button" id="selection-set" name="selection-set" value="Go!!">
+Select a substring starting at <input type="text" id="char-start" name="char-start" value="30"> with a length of <input type="text" id="char-end" name="char-end" value="15"> <input type="button" id="selection-set" name="selection-set" value="Go!!">
 </div>
 <div>
 Replace the selected text with: <input type="text" id="replace-text" name="replace-text" value="some text"> <input type="button" id="selection-replace" name="selection-replace" value="Go!!">
