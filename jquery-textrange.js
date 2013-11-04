@@ -187,7 +187,7 @@
 
 	$.fn.textrange = function(method) {
 		if (typeof browserType === 'undefined') {
-			browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
+			browserType = 'selectionStart' in (this[0] || []) ? 'xul' : document.selection ? 'msie' : 'unknown';
 		}
 
 		// I don't know how to support this browser. :c
