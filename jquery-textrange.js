@@ -127,7 +127,9 @@
 
 		msie: {
 			get: function(property) {
-				this[0].focus();
+				if (document.activeElement !== this[0]) {
+					this[0].focus();
+				}
 
 				var range = document.selection.createRange();
 
