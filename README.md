@@ -1,18 +1,20 @@
-This jQuery plugin is for easily finding the starting and ending positions of selected text in text fields and textareas. It can also be used to set the selection, and replace the selection with given text (or insert text wherever the cursor is in the text field or textarea).
+# jQuery TextRange
 
-## Methods
-* [$().textrange('get')](https://github.com/dwieeb/jquery-textrange/wiki/Get)
-* [$().textrange('set')](https://github.com/dwieeb/jquery-textrange/wiki/Set)
-* [$().textrange('setcursor')](https://github.com/dwieeb/jquery-textrange/wiki/SetCursor)
-* [$().textrange('replace')](https://github.com/dwieeb/jquery-textrange/wiki/Replace)
+This jQuery plugin provides dead simple methods for getting and setting the selected text in DOM elements. It provides a suite of related tools that all manipulate text within a jQuery element, such as replacing the selected text (or a given character range) with a string.
 
-## Demo
-* http://dwieeb.github.com/jquery-textrange/
+## Information
+* jQuery 1.3 or higher (including jQuery 2).
+* Does not work with TinyMCE, CKEditor, or other WYSIWYG editors. Each editor provides this functionality in their own API.
 
-## Minified Version
-A minified version of this plugin can be generated using Google's Closure Compiler (preferred).
+## Links
+* [Demo](http://dwieeb.github.com/jquery-textrange) (dwieeb.github.com)
+* [jQuery TextRange](http://plugins.jquery.com/textrange/) (plugins.jquery.com)
+* [License](https://raw.github.com/dwieeb/jquery-textrange/master/LICENSE) (raw.github.com)
 
-    wget http://closure-compiler.googlecode.com/files/compiler-latest.tar.gz
-    tar -zvxf compiler-latest.tar.gz compiler.jar
-    wget https://raw.github.com/dwieeb/jquery-textrange/master/jquery-textrange.js
-    java -jar compiler.jar --js jquery-textrange.js --js_output_file jquery-textrange.min.js
+## Setup
+* Download ([.zip](https://github.com/dwieeb/jquery-textrange/archive/master.zip) or  [.tar.gz](https://github.com/dwieeb/jquery-textrange/archive/master.tar.gz)) and extract onto your web server.
+* Include the script:
+
+```html
+<script src="js/jquery-textrange/jquery-textrange.min.js"></script>
+```
