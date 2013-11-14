@@ -127,7 +127,9 @@
 
 		msie: {
 			get: function(property) {
-				this[0].focus();
+				if (document.activeElement !== this[0]) {
+					this[0].focus();
+				}
 
 				var range = document.selection.createRange();
 
@@ -157,7 +159,9 @@
 			},
 
 			set: function(start, end) {
-				this[0].focus();
+				if (document.activeElement !== this[0]) {
+					this[0].focus();
+				}
 
 				var range = this[0].createTextRange();
 
@@ -178,7 +182,9 @@
 			},
 
 			replace: function(text) {
-				this[0].focus();
+				if (document.activeElement !== this[0]) {
+					this[0].focus();
+				}
 
 				document.selection.createRange().text = text;
 			}
