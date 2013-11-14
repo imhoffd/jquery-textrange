@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>jQuery TextRange</title>
+        <link rel="stylesheet" href="demo.css">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="../jquery-textrange.js"></script>
+        <script src="demo.js"></script>
+    </head>
+    <body>
+        <h1><a href="https://github.com/dwieeb/jquery-textrange/">jquery-textrange</a></h1>
+        <span class="copyright"><a href="http://www.danielimhoff.com">created by Daniel Imhoff</a></span>
+        <span class="description"><a href="https://github.com/dwieeb/jquery-textrange/wiki/">See the wiki for all features and documentation.</a></span>
+        <div id="fields">
+<textarea id="textarea" name="textarea">Some more content.
+Isn't this cool?
+This time with a few lines of content.
+Yaaay.</textarea>
+        </div>
+        <div id="info">
+            <strong>Object returned:</strong>
+            <code>
+                <span class="line">{</span>
+                <span id="position" class="property line">position: <span class="value">0</span>,</span>
+                <span id="start" class="property line">start: <span class="value">0</span>,</span>
+                <span id="end" class="property line">end: <span class="value">0</span>,</span>
+                <span id="length" class="property line">length: <span class="value">0</span>,</span>
+                <span id="text" class="property line">text: "<span class="value"></span>"</span>
+                <span class="line">}</span>
+            </code>
+            <input type="button" id="console-log" name="console-log" value="console.log() this bad boy">
+        </div>
+        <div>Select a substring starting at <input type="text" id="char-start" name="char-start" value="30"> with a length of <input type="text" id="char-end" name="char-end" value="15"> <input type="button" id="selection-set" name="selection-set" value="Go!!"></div>
+        <div>Replace the selected text with: <input type="text" id="replace-text" name="replace-text" value="some text"> <input type="button" id="selection-replace" name="selection-replace" value="Go!!"></div>
+    </body>
+</html>
