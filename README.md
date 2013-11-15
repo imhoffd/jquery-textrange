@@ -16,5 +16,5 @@ This jQuery plugin provides dead simple methods for getting and setting the sele
 * Include the script:
 
 ```html
-<script src="js/jquery-textrange/jquery-textrange.min.js"></script>
+<script src="js/jquery-textrange/src/jquery-textrange.min.js"></script>
 ```
