@@ -6,23 +6,7 @@
  * (c) 2013 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
 (function($) {
-    
-	/**
-	* Sets the focus to the specified element if it isn't focused yet.
-	* 
-	* Prevents unpleasant behaviour for textareas in IE:
-	* If you have a textarea which is too wide to be displayed entirely and therfore has to be scrolled horizontally,
-	* then typing one character after another will scroll the page automatically to the right at the moment you reach
-	* the right border of the visible part. But calling the focus function causes the page to be scrolled to the left
-	* edge of the textarea. Immediately after that jump to the left side, the content is scrolled back to the cursor
-	* position, which leads to a flicker page every time you type a character. 
-	*/
-	function focus(element) {
-		if (document.activeElement !== element) {
-			element.focus();
-		}
-	}
-    
+
 	var browserType,
 
 	textrange = {
@@ -115,7 +99,6 @@
 	_textrange = {
 		xul: {
 			get: function(property) {
-				focus(this[0]);
 				var props = {
 					position: this[0].selectionStart,
 					start: this[0].selectionStart,
@@ -128,13 +111,11 @@
 			},
 
 			set: function(start, end) {
-				focus(this[0]);
 				this[0].selectionStart = start;
 				this[0].selectionEnd = end;
 			},
 
 			replace: function(text) {
-				focus(this[0]);
 				var start = this[0].selectionStart;
 				this.val(this.val().substring(0, this[0].selectionStart) + text + this.val().substring(this[0].selectionEnd, this.val().length));
 				this[0].selectionStart = start;
@@ -144,7 +125,6 @@
 
 		msie: {
 			get: function(property) {
-				focus(this[0]);
 				var range = document.selection.createRange();
 
 				if (typeof range === 'undefined') {
@@ -173,7 +153,6 @@
 			},
 
 			set: function(start, end) {
-				focus(this[0]);
 				var range = this[0].createTextRange();
 
 				if (typeof range === 'undefined') {
@@ -193,7 +172,6 @@
 			},
 
 			replace: function(text) {
-				focus(this[0]);
 				document.selection.createRange().text = text;
 			}
 		}
@@ -207,6 +185,16 @@
 		// I don't know how to support this browser. :c
 		if (browserType === 'unknown') {
 			return this;
+		}
+
+		// Prevents unpleasant behaviour for textareas in IE:
+		// If you have a textarea which is too wide to be displayed entirely and therfore has to be scrolled horizontally,
+		// then typing one character after another will scroll the page automatically to the right at the moment you reach
+		// the right border of the visible part. But calling the focus function causes the page to be scrolled to the left
+		// edge of the textarea. Immediately after that jump to the left side, the content is scrolled back to the cursor
+		// position, which leads to a flicker page every time you type a character.
+		if (document.activeElement !== this[0]) {
+			this[0].focus();
 		}
 
 		if (typeof method === 'undefined' || typeof method !== 'string') {
