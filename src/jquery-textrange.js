@@ -142,13 +142,15 @@
                 rangetext.moveToBookmark(range.getBookmark());
                 rangetextcopy.setEndPoint('EndToStart', rangetext);
 
-                return {
+                var props = {
                     position: rangetextcopy.text.length,
                     start: rangetextcopy.text.length,
                     end: rangetextcopy.text.length + range.text.length,
                     length: range.text.length,
                     text: range.text
                 };
+
+                return typeof property === 'undefined' ? props : props[property];
             },
 
             set: function(start, end) {

@@ -1,11 +1,13 @@
 {
-  "name": "jquery-textrange",
-  "version": "1.1.0",
-  "main": "jquery-textrange.js",
-  "dependencies": {
-    "jquery": ">=1.3"
-  },
-  "ignore": [
-    "textrange.jquery.json"
-  ]
+    "name": "jquery-textrange",
+    "version": "2.0.0",
+    "main": "src/jquery-textrange.min.js",
+    "dependencies": {
+        "jquery": ">=1.3"
+    },
+    "ignore": [
+        "textrange.jquery.json",
+        "Gruntfile.js",
+        "package.json"
+    ]
 }

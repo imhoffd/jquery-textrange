@@ -1,40 +1,40 @@
 {
-  "name": "textrange",
-  "title": "jQuery TextRange",
-  "description": "jQuery plugin for getting, setting, and replacing the selected text in input fields and textareas.",
-  "keywords": [
-    "text",
-    "range",
-    "caret",
-    "cursor",
-    "textrange",
-    "select",
-    "highlight",
-    "selection",
-    "field",
-    "input",
-    "textarea",
-    "replace",
-    "substring",
-    "substr"
-  ],
-  "version": "1.1.0",
-  "author": {
-    "name": "Daniel Imhoff",
-    "email": "dwieeb@gmail.com",
-    "url": "http://www.danielimhoff.com"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://raw.github.com/dwieeb/jquery-textrange/master/LICENSE"
+    "name": "textrange",
+    "title": "jQuery TextRange",
+    "description": "jQuery plugin for getting, setting, and replacing the selected text in input fields and textareas.",
+    "keywords": [
+        "text",
+        "range",
+        "caret",
+        "cursor",
+        "textrange",
+        "select",
+        "highlight",
+        "selection",
+        "field",
+        "input",
+        "textarea",
+        "replace",
+        "substring",
+        "substr"
+    ],
+    "version": "2.0.0",
+    "author": {
+        "name": "Daniel Imhoff",
+        "email": "dwieeb@gmail.com",
+        "url": "http://www.danielimhoff.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/dwieeb/jquery-textrange/2.x/LICENSE"
+        }
+    ],
+    "bugs": "",
+    "homepage": "http://dwieeb.github.io/jquery-textrange",
+    "docs": "https://github.com/dwieeb/jquery-textrange/blob/2.x/README.md",
+    "demo": "http://dwieeb.github.io/jquery-textrange/",
+    "dependencies": {
+        "jquery": ">=1.3"
     }
-  ],
-  "bugs": "",
-  "homepage": "http://dwieeb.github.com/jquery-textrange",
-  "docs": "https://github.com/dwieeb/jquery-textrange/wiki",
-  "demo": "http://dwieeb.github.com/jquery-textrange",
-  "dependencies": {
-    "jquery": ">=1.3"
-  }
 }

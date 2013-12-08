@@ -1,0 +1,40 @@
+{
+  "name": "jquery-textrange",
+  "version": "2.0.0",
+  "description": "Provides dead simple methods for getting and setting the selected text in DOM elements.",
+  "main": "./src/jquery-textrange.min.js",
+  "dependencies": {
+    "jquery": "~1.8.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-jshint": "~0.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwieeb/jquery-textrange.git"
+  },
+  "keywords": [
+    "text",
+    "range",
+    "caret",
+    "cursor",
+    "textrange",
+    "select",
+    "highlight",
+    "selection",
+    "field",
+    "input",
+    "textarea",
+    "replace",
+    "substring",
+    "substr"
+  ],
+  "author": {
+    "name": "Daniel Imhoff",
+    "email": "dwieeb@gmail.com",
+    "url": "http://danielimhoff.com"
+  },
+  "license": "MIT/X11"
+}
