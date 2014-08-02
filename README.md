@@ -4,6 +4,23 @@ This jQuery plugin is for easily finding the starting and ending positions of se
 
 * http://dwieeb.github.com/jquery-textrange/
 
+## Include
+
+Works with 
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="jquery-plugins/jquery-textrange.js"></script>
+
+Or, with RequireJS (**note**: jquery-textrange can be loaded through any [AMD](https://github.com/amdjs/amdjs-api/blob/master/AMD.md)-compatible Javascript Module Loader):
+
+    requirejs.config({
+        "baseUrl": "lib",
+        "paths": {
+            "jquery": "//code.jquery.com/jquery-latest.min.js",
+            "jquery-textrange": "jquery-plugins/jquery-textrange"
+        }
+    });
+
 ## Methods
 
 You can use this method to get all the information on the selected text of an element or a specific bit of information.
