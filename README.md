@@ -6,7 +6,7 @@ This jQuery plugin is for easily finding the starting and ending positions of se
 
 ## Include
 
-Include the file directly using <script> tags:
+Include the file directly using `<script>` tags:
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="jquery-plugins/jquery-textrange.js"></script>
