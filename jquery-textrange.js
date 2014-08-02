@@ -3,7 +3,7 @@
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
  * See the [wiki](https://github.com/dwieeb/jquery-textrange/wiki) for usage and examples.
  *
- * (c) 2013 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
+ * (c) 2012-2014 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
