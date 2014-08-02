@@ -5,7 +5,13 @@
  *
  * (c) 2013 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
-(function($) {
+(function(factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
+	} else {
+		factory(jQuery);
+	}
+})(function($) {
 
 	var browserType,
 
@@ -209,4 +215,4 @@
 			$.error("Method " + method + " does not exist in jQuery.textrange");
 		}
 	};
-})(jQuery);
+});
