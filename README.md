@@ -11,7 +11,7 @@ Include the file directly using `<script>` tags:
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="jquery-plugins/jquery-textrange.js"></script>
 
-Or, with RequireJS (**note**: jquery-textrange can be loaded through any [AMD](https://github.com/amdjs/amdjs-api/blob/master/AMD.md)-compatible Javascript Module Loader):
+Or, with RequireJS (**note**: jquery-textrange can be loaded through any [UMD](https://github.com/umdjs/umd/blob/master/README.md)-compatible Javascript Module Loader):
 
     requirejs.config({
         "baseUrl": "lib",
@@ -69,7 +69,7 @@ For the following examples, let's say `input[name="example"]` contains the text 
     $('input[name="example"]').textrange('set', -2, 1); // selects "e"
     $('input[name="example"]').textrange('set', -4, -1); // selects "cde"
 
-If you're looking to set the cursor at one specific location, you can use `0` for length, or you can use [$().textrange('setcursor')](https://github.com/dwieeb/jquery-textrange/wiki/SetCursor).
+If you're looking to set the cursor at one specific location, you can use `0` for length, or you can use `$().textrange('setcursor')` (see below).
 
 ### 'setcursor'
 
