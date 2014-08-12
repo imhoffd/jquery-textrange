@@ -1,5 +1,7 @@
 This jQuery plugin is for easily finding the starting and ending positions of selected text in text fields and textareas. It can also be used to set the selection, and replace the selection with given text (or insert text wherever the cursor is in the text field or textarea).
 
+* jquery-textrange may not work with WYSIWYG editors. See [issue #3](https://github.com/dwieeb/jquery-textrange/issues/3) and [this question](http://wordpress.stackexchange.com/questions/105961/insert-text-a-cursor-position-in-to-tinymce-text-editor).
+
 ## Demo
 
 * http://dwieeb.github.com/jquery-textrange/
