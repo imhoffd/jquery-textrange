@@ -129,8 +129,11 @@
 			},
 
 			replace: function(text) {
+				text = String(text);
 				var start = this[0].selectionStart;
-				this.val(this.val().substring(0, this[0].selectionStart) + text + this.val().substring(this[0].selectionEnd, this.val().length));
+				var end = this[0].selectionEnd;
+				var val = this.val();
+				this.val(val.substring(0, start) + text + val.substring(end, val.length));
 				this[0].selectionStart = start;
 				this[0].selectionEnd = start + text.length;
 			}
