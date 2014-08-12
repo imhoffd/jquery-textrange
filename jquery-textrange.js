@@ -96,7 +96,7 @@
 		 * @param text The text to replace the selection with.
 		 */
 		replace: function(text) {
-			_textrange[browserType].replace.apply(this, [text]);
+			_textrange[browserType].replace.apply(this, [String(text)]);
 
 			return this;
 		},
@@ -129,7 +129,6 @@
 			},
 
 			replace: function(text) {
-				text = String(text);
 				var start = this[0].selectionStart;
 				var end = this[0].selectionEnd;
 				var val = this.val();
