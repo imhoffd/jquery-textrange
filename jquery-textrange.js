@@ -1,18 +1,23 @@
 /**
  * jquery-textrange
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
- * See the [wiki](https://github.com/dwieeb/jquery-textrange/wiki) for usage and examples.
+ * See the [README](https://github.com/dwieeb/jquery-textrange/blob/1.x/README.md) for usage and examples.
  *
  * (c) 2012-2014 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
+
 (function(factory) {
+
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery'], factory);
-	} else if (typeof exports === 'object') {
+	}
+	else if (typeof exports === 'object') {
 		factory(require('jquery'));
-	} else {
+	}
+	else {
 		factory(jQuery);
 	}
+
 })(function($) {
 
 	var browserType,
@@ -197,12 +202,7 @@
 			return this;
 		}
 
-		// Prevents unpleasant behaviour for textareas in IE:
-		// If you have a textarea which is too wide to be displayed entirely and therfore has to be scrolled horizontally,
-		// then typing one character after another will scroll the page automatically to the right at the moment you reach
-		// the right border of the visible part. But calling the focus function causes the page to be scrolled to the left
-		// edge of the textarea. Immediately after that jump to the left side, the content is scrolled back to the cursor
-		// position, which leads to a flicker page every time you type a character.
+		// Focus on the element before operating upon it.
 		if (document.activeElement !== this[0]) {
 			this[0].focus();
 		}
