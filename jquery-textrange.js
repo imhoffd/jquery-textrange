@@ -193,6 +193,10 @@
 	};
 
 	$.fn.textrange = function(method) {
+		if (typeof this[0] === 'undefined') {
+			return this;
+		}
+
 		if (typeof browserType === 'undefined') {
 			browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
 		}
