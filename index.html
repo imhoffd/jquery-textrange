@@ -21,9 +21,6 @@ span.copyright { float:right; color:#fff; margin-right:30px; }
 #info .property { margin-left:30px; }
 #textarea { display:block; width:300px; height:90px; }
 #char-start, #char-end { width:40px; }
-#links { width:580px; text-align:center; }
-#links a { display:inline-block; background:#000; border-radius: 40px; margin:0 10px; padding:10px 20px; }
-#links a:hover, #links a:active, #links a:focus { background:#fa4500; }
 </style>
 <script>
 $(document).ready(function() {
@@ -34,7 +31,11 @@ $(document).ready(function() {
 		$('h1').css('border-color', orange ? 'transparent' : '#fa4500');
 	}, 500);
 
-	$('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function() {
+	$('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function(event) {
+		if (document.activeElement !== $(this)[0]) {
+			return;
+		}
+
 		var range = $(this).textrange();
 
 		$('#info .property').each(function() {
@@ -99,11 +100,6 @@ Select a substring starting at <input type="text" id="char-start" name="char-sta
 </div>
 <div>
 Replace the selected text with: <input type="text" id="replace-text" name="replace-text" value="some text"> <input type="button" id="selection-replace" name="selection-replace" value="Go!!">
-</div>
-<div id="links">
-<a href="https://github.com/dwieeb/jquery-textrange/zipball/master">Download .zip</a>
-<a href="https://github.com/dwieeb/jquery-textrange/tarball/master">Download .tar</a>
-<a href="https://github.com/dwieeb/jquery-textrange">View on github</a>
 </div>
 </body>
 </html>

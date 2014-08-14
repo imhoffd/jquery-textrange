@@ -1,11 +1,25 @@
 /**
  * jquery-textrange
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
- * See the [wiki](https://github.com/dwieeb/jquery-textrange/wiki) for usage and examples.
+ * See the [README](https://github.com/dwieeb/jquery-textrange/blob/1.x/README.md) for usage and examples.
  *
- * (c) 2013 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
+ * (c) 2012-2014 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
-(function($) {
+
+(function(factory) {
+
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
+	}
+	else if (typeof exports === 'object') {
+		factory(require('jquery'));
+	}
+	else {
+		factory(jQuery);
+	}
+
+})(function($) {
+
 	var browserType,
 
 	textrange = {
@@ -82,7 +96,7 @@
 		 * @param text The text to replace the selection with.
 		 */
 		replace: function(text) {
-			_textrange[browserType].replace.apply(this, [text]);
+			_textrange[browserType].replace.apply(this, [String(text)]);
 
 			return this;
 		},
@@ -98,7 +112,6 @@
 	_textrange = {
 		xul: {
 			get: function(property) {
-				this[0].focus();
 				var props = {
 					position: this[0].selectionStart,
 					start: this[0].selectionStart,
@@ -111,15 +124,15 @@
 			},
 
 			set: function(start, end) {
-				this[0].focus();
 				this[0].selectionStart = start;
 				this[0].selectionEnd = end;
 			},
 
 			replace: function(text) {
-				this[0].focus();
 				var start = this[0].selectionStart;
-				this.val(this.val().substring(0, this[0].selectionStart) + text + this.val().substring(this[0].selectionEnd, this.val().length));
+				var end = this[0].selectionEnd;
+				var val = this.val();
+				this.val(val.substring(0, start) + text + val.substring(end, val.length));
 				this[0].selectionStart = start;
 				this[0].selectionEnd = start + text.length;
 			}
@@ -127,8 +140,6 @@
 
 		msie: {
 			get: function(property) {
-				this[0].focus();
-
 				var range = document.selection.createRange();
 
 				if (typeof range === 'undefined') {
@@ -147,18 +158,18 @@
 				rangetext.moveToBookmark(range.getBookmark());
 				rangetextcopy.setEndPoint('EndToStart', rangetext);
 
-				return {
+				var props = {
 					position: rangetextcopy.text.length,
 					start: rangetextcopy.text.length,
 					end: rangetextcopy.text.length + range.text.length,
 					length: range.text.length,
 					text: range.text
 				};
+
+				return typeof property === 'undefined' ? props : props[property];
 			},
 
 			set: function(start, end) {
-				this[0].focus();
-
 				var range = this[0].createTextRange();
 
 				if (typeof range === 'undefined') {
@@ -178,14 +189,16 @@
 			},
 
 			replace: function(text) {
-				this[0].focus();
-
 				document.selection.createRange().text = text;
 			}
 		}
 	};
 
 	$.fn.textrange = function(method) {
+		if (typeof this[0] === 'undefined') {
+			return this;
+		}
+
 		if (typeof browserType === 'undefined') {
 			browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
 		}
@@ -193,6 +206,11 @@
 		// I don't know how to support this browser. :c
 		if (browserType === 'unknown') {
 			return this;
+		}
+
+		// Focus on the element before operating upon it.
+		if (document.activeElement !== this[0]) {
+			this[0].focus();
 		}
 
 		if (typeof method === 'undefined' || typeof method !== 'string') {
@@ -205,4 +223,4 @@
 			$.error("Method " + method + " does not exist in jQuery.textrange");
 		}
 	};
-})(jQuery);
+});
