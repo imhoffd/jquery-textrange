@@ -31,7 +31,11 @@ $(document).ready(function() {
 		$('h1').css('border-color', orange ? 'transparent' : '#fa4500');
 	}, 500);
 
-	$('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function() {
+	$('#textarea').bind('updateInfo keyup mousedown mousemove mouseup', function(event) {
+		if (document.activeElement !== $(this)[0]) {
+			return;
+		}
+
 		var range = $(this).textrange();
 
 		$('#info .property').each(function() {
