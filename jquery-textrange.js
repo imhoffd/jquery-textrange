@@ -143,13 +143,15 @@
 				var range = document.selection.createRange();
 
 				if (typeof range === 'undefined') {
-					return {
+					var props = {
 						position: 0,
 						start: 0,
-						end: this[0].val().length,
-						length: this[0].val().length,
+						end: this.val().length,
+						length: this.val().length,
 						text: this.val()
 					};
+
+					return typeof property === 'undefined' ? props : props[property];
 				}
 
 				var rangetext = this[0].createTextRange();
