@@ -1,6 +1,6 @@
 {
   "name": "jquery-textrange",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.",
   "main": "jquery-textrange.js",
   "dependencies": {
