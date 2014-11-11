@@ -173,6 +173,7 @@
 						end = length;
 					}
 				} else {
+					start = length;
 					end = length;
 				}
 
@@ -203,12 +204,8 @@
 
 				range.collapse(true);
 
-				if (start === end) {
-					range.move('character', ieStart);
-				} else {
-					range.moveEnd('character', ieEnd);
-					range.moveStart('character', ieStart);
-				}
+				range.moveEnd('character', ieEnd);
+				range.moveStart('character', ieStart);
 
 				range.select();
 			},
