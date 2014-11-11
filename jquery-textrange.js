@@ -58,19 +58,16 @@
 
 			if (typeof start === 'undefined') {
 				s = 0;
-			}
-			else if (start < 0) {
-				s = this.val().length + s;
+			} else if (start < 0) {
+				s = this[0].value.length + s;
 			}
 
-			if (typeof length === 'undefined') {
-				e = this.val().length;
-			}
-			else if (length >= 0) {
-				e = s + l;
-			}
-			else {
-				e = this.val().length + l;
+			if (typeof length !== 'undefined') {
+				if (length >= 0) {
+					e = s + l;
+				} else {
+					e = this[0].value.length + l;
+				}
 			}
 
 			_textrange[browserType].set.apply(this, [s, e]);
@@ -124,6 +121,10 @@
 			},
 
 			set: function(start, end) {
+				if (typeof end === 'undefined') {
+					end = this[0].value.length;
+				}
+
 				this[0].selectionStart = start;
 				this[0].selectionEnd = end;
 			},
@@ -192,16 +193,23 @@
 				var range = this[0].createTextRange();
 
 				if (typeof range === 'undefined') {
-					return this;
+					return;
 				}
 
-				if (typeof start !== 'undefined') {
-					range.moveStart('character', start);
-					range.collapse();
+				if (typeof end === 'undefined') {
+					end = this[0].value.length;
 				}
 
-				if (typeof end !== 'undefined') {
-					range.moveEnd('character', end - start);
+				var ieStart = start - (this[0].value.slice(0, start).split("\r\n").length - 1);
+				var ieEnd = end - (this[0].value.slice(0, end).split("\r\n").length - 1);
+
+				range.collapse(true);
+
+				if (start === end) {
+					range.move('character', ieStart);
+				} else {
+					range.moveEnd('character', ieEnd);
+					range.moveStart('character', ieStart);
 				}
 
 				range.select();
