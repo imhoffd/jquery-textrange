@@ -6,6 +6,14 @@ This jQuery plugin is for easily finding the starting and ending positions of se
 
 * http://dwieeb.github.com/jquery-textrange/
 
+## Browser Support
+
+Tested in the following major browsers:
+
+* Internet Explorer 5.5+
+* Firefox 2+
+* Chrome
+
 ## Include
 
 Include the file directly using `<script>` tags:
