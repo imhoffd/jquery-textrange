@@ -10,11 +10,9 @@
 
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery'], factory);
-	}
-	else if (typeof exports === 'object') {
+	} else if (typeof exports === 'object') {
 		factory(require('jquery'));
-	}
-	else {
+	} else {
 		factory(jQuery);
 	}
 
@@ -242,11 +240,9 @@
 
 		if (typeof method === 'undefined' || typeof method !== 'string') {
 			return textrange.get.apply(this);
-		}
-		else if (typeof textrange[method] === 'function') {
+		} else if (typeof textrange[method] === 'function') {
 			return textrange[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		}
-		else {
+		} else {
 			$.error("Method " + method + " does not exist in jQuery.textrange");
 		}
 	};
