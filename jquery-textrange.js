@@ -154,17 +154,34 @@
 					return typeof property === 'undefined' ? props : props[property];
 				}
 
-				var rangetext = this[0].createTextRange();
-				var rangetextcopy = rangetext.duplicate();
+				var start = 0;
+				var end = 0;
+				var length = this[0].value.length;
+				var lfValue = this[0].value.replace(/\r\n/g, '\n');
+				var rangeText = this[0].createTextRange();
+				var rangeTextEnd = this[0].createTextRange();
+				rangeText.moveToBookmark(range.getBookmark());
+				rangeTextEnd.collapse(false);
 
-				rangetext.moveToBookmark(range.getBookmark());
-				rangetextcopy.setEndPoint('EndToStart', rangetext);
+				if (rangeText.compareEndPoints('StartToEnd', rangeTextEnd) === -1) {
+					start = -rangeText.moveStart('character', -length);
+					start += lfValue.slice(0, start).split('\n').length - 1;
+
+					if (rangeText.compareEndPoints('EndToEnd', rangeTextEnd) === -1) {
+						end = -rangeText.moveEnd('character', -length);
+						end += lfValue.slice(0, end).split('\n').length - 1;
+					} else {
+						end = length;
+					}
+				} else {
+					end = length;
+				}
 
 				var props = {
-					position: rangetextcopy.text.length,
-					start: rangetextcopy.text.length,
-					end: rangetextcopy.text.length + range.text.length,
-					length: range.text.length,
+					position: start,
+					start: start,
+					end: end,
+					length: length,
 					text: range.text
 				};
 
