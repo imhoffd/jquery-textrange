@@ -10,11 +10,9 @@
 
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery'], factory);
-	}
-	else if (typeof exports === 'object') {
+	} else if (typeof exports === 'object') {
 		factory(require('jquery'));
-	}
-	else {
+	} else {
 		factory(jQuery);
 	}
 
@@ -58,19 +56,16 @@
 
 			if (typeof start === 'undefined') {
 				s = 0;
-			}
-			else if (start < 0) {
-				s = this.val().length + s;
+			} else if (start < 0) {
+				s = this[0].value.length + s;
 			}
 
-			if (typeof length === 'undefined') {
-				e = this.val().length;
-			}
-			else if (length >= 0) {
-				e = s + l;
-			}
-			else {
-				e = this.val().length + l;
+			if (typeof length !== 'undefined') {
+				if (length >= 0) {
+					e = s + l;
+				} else {
+					e = this[0].value.length + l;
+				}
 			}
 
 			_textrange[browserType].set.apply(this, [s, e]);
@@ -124,6 +119,10 @@
 			},
 
 			set: function(start, end) {
+				if (typeof end === 'undefined') {
+					end = this[0].value.length;
+				}
+
 				this[0].selectionStart = start;
 				this[0].selectionEnd = end;
 			},
@@ -143,26 +142,46 @@
 				var range = document.selection.createRange();
 
 				if (typeof range === 'undefined') {
-					return {
+					var props = {
 						position: 0,
 						start: 0,
-						end: this[0].val().length,
-						length: this[0].val().length,
+						end: this.val().length,
+						length: this.val().length,
 						text: this.val()
 					};
+
+					return typeof property === 'undefined' ? props : props[property];
 				}
 
-				var rangetext = this[0].createTextRange();
-				var rangetextcopy = rangetext.duplicate();
+				var start = 0;
+				var end = 0;
+				var length = this[0].value.length;
+				var lfValue = this[0].value.replace(/\r\n/g, '\n');
+				var rangeText = this[0].createTextRange();
+				var rangeTextEnd = this[0].createTextRange();
+				rangeText.moveToBookmark(range.getBookmark());
+				rangeTextEnd.collapse(false);
 
-				rangetext.moveToBookmark(range.getBookmark());
-				rangetextcopy.setEndPoint('EndToStart', rangetext);
+				if (rangeText.compareEndPoints('StartToEnd', rangeTextEnd) === -1) {
+					start = -rangeText.moveStart('character', -length);
+					start += lfValue.slice(0, start).split('\n').length - 1;
+
+					if (rangeText.compareEndPoints('EndToEnd', rangeTextEnd) === -1) {
+						end = -rangeText.moveEnd('character', -length);
+						end += lfValue.slice(0, end).split('\n').length - 1;
+					} else {
+						end = length;
+					}
+				} else {
+					start = length;
+					end = length;
+				}
 
 				var props = {
-					position: rangetextcopy.text.length,
-					start: rangetextcopy.text.length,
-					end: rangetextcopy.text.length + range.text.length,
-					length: range.text.length,
+					position: start,
+					start: start,
+					end: end,
+					length: length,
 					text: range.text
 				};
 
@@ -173,17 +192,20 @@
 				var range = this[0].createTextRange();
 
 				if (typeof range === 'undefined') {
-					return this;
+					return;
 				}
 
-				if (typeof start !== 'undefined') {
-					range.moveStart('character', start);
-					range.collapse();
+				if (typeof end === 'undefined') {
+					end = this[0].value.length;
 				}
 
-				if (typeof end !== 'undefined') {
-					range.moveEnd('character', end - start);
-				}
+				var ieStart = start - (this[0].value.slice(0, start).split("\r\n").length - 1);
+				var ieEnd = end - (this[0].value.slice(0, end).split("\r\n").length - 1);
+
+				range.collapse(true);
+
+				range.moveEnd('character', ieEnd);
+				range.moveStart('character', ieStart);
 
 				range.select();
 			},
@@ -215,11 +237,9 @@
 
 		if (typeof method === 'undefined' || typeof method !== 'string') {
 			return textrange.get.apply(this);
-		}
-		else if (typeof textrange[method] === 'function') {
+		} else if (typeof textrange[method] === 'function') {
 			return textrange[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		}
-		else {
+		} else {
 			$.error("Method " + method + " does not exist in jQuery.textrange");
 		}
 	};
