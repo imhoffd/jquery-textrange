@@ -116,11 +116,9 @@ $('input[name="example"]').textrange('replace', 'some text');
 There is also an `insert` alias for `replace` if you're using this method to insert text at the cursor location. They work the same way.
 
 ## Minified Version
-A minified version of this plugin can be generated using Google's Closure Compiler (preferred).
+A minified version of this plugin can be generated using UglifyJS during your build process or via CLI tools:
 
 ```bash
-wget http://closure-compiler.googlecode.com/files/compiler-latest.tar.gz
-tar -zvxf compiler-latest.tar.gz compiler.jar
-wget https://raw.github.com/dwieeb/jquery-textrange/master/jquery-textrange.js
-java -jar compiler.jar --js jquery-textrange.js --js_output_file jquery-textrange.min.js
+npm i -g uglify-js
+uglifyjs jquery-textrange.js > jquery-textrange.min.js
 ```
