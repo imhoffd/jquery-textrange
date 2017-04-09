@@ -107,13 +107,17 @@ $('input[name="example"]').textrange('setcursor', 5);
 
 ### 'replace'
 
-You can use this method to replace the selection with given text. 
+You can use this method to replace the selection with given text.
 
 ```javascript
 $('input[name="example"]').textrange('replace', 'some text');
 ```
 
 There is also an `insert` alias for `replace` if you're using this method to insert text at the cursor location. They work the same way.
+
+### 'get-nofocus', 'set-nofocus', 'setcursor-nofocus', 'replace-nofocus', 'insert-nofocus'
+
+You can add the suffix '-nofocus' to any of the method names to perform the corresponding operation without setting focus on the target element.
 
 ## Minified Version
 A minified version of this plugin can be generated using UglifyJS during your build process or via CLI tools:

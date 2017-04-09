@@ -230,8 +230,11 @@
 			return this;
 		}
 
-		// Focus on the element before operating upon it.
-		if (document.activeElement !== this[0]) {
+		// Focus on the element before operating upon it,
+		// unless the specified method ends in '-nofocus'
+		if (method.slice(-8)==='-nofocus') {
+			method = method.slice(0,-8); //strip the -nofocus suffix and bypass focus()
+		} else if (document.activeElement !== this[0]) {
 			this[0].focus();
 		}
 
