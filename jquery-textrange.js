@@ -1,9 +1,10 @@
 /**
  * jquery-textrange
+ *
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
  * See the [README](https://github.com/dwieeb/jquery-textrange/blob/1.x/README.md) for usage and examples.
  *
- * (c) 2012-2014 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
+ * (c) 2012-2017 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
  */
 
 (function(factory) {
