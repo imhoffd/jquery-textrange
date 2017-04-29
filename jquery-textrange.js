@@ -1,9 +1,10 @@
 /**
  * jquery-textrange
+ *
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
  * See the [README](https://github.com/dwieeb/jquery-textrange/blob/1.x/README.md) for usage and examples.
  *
- * (c) 2012-2014 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
+ * (c) 2012-2017 Daniel Imhoff <dwieeb@gmail.com> - dwieeb.com
  */
 
 (function(factory) {
@@ -47,7 +48,7 @@
 		 * @param (optional) start
 		 * @param (optional) length
 		 *
-		 * @see http://php.net/manual/en/function.substr.php
+		 * @see https://secure.php.net/manual/en/function.substr.php
 		 */
 		set: function(start, length) {
 			var s = parseInt(start),
@@ -216,31 +217,41 @@
 		}
 	};
 
-	$.fn.textrange = function(method) {
-		if (typeof this[0] === 'undefined') {
-			return this;
-		}
+	$.fn.extend({
+		textrange: function(arg) {
+			var method = 'get';
+			var options = {};
 
-		if (typeof browserType === 'undefined') {
-			browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
-		}
+			if (typeof this[0] === 'undefined') {
+				return this;
+			}
 
-		// I don't know how to support this browser. :c
-		if (browserType === 'unknown') {
-			return this;
-		}
+			if (typeof arg === 'string') {
+				method = arg;
+			} else if (typeof arg === 'object') {
+				method = arg.method || method;
+				options = arg;
+			}
 
-		// Focus on the element before operating upon it.
-		if (document.activeElement !== this[0]) {
-			this[0].focus();
-		}
+			if (typeof browserType === 'undefined') {
+				browserType = 'selectionStart' in this[0] ? 'xul' : document.selection ? 'msie' : 'unknown';
+			}
 
-		if (typeof method === 'undefined' || typeof method !== 'string') {
-			return textrange.get.apply(this);
-		} else if (typeof textrange[method] === 'function') {
-			return textrange[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		} else {
-			$.error("Method " + method + " does not exist in jQuery.textrange");
+			// I don't know how to support this browser. :c
+			if (browserType === 'unknown') {
+				return this;
+			}
+
+			// Focus on the element before operating upon it.
+			if (!options.nofocus && document.activeElement !== this[0]) {
+				this[0].focus();
+			}
+
+			if (typeof textrange[method] === 'function') {
+				return textrange[method].apply(this, Array.prototype.slice.call(arguments, 1));
+			} else {
+				$.error("Method " + method + " does not exist in jQuery.textrange");
+			}
 		}
-	};
+	});
 });
