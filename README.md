@@ -118,7 +118,7 @@ $('input[name="example"]').textrange('replace', 'some text');
 There is also an `insert` alias for `replace` if you're using this method to
 insert text at the cursor location. They work the same way.
 
-### Options
+## Options
 
 For the first parameter of each method, you can pass an object instead of a
 string with additional options:
@@ -129,5 +129,6 @@ $('input[name="example"]').textrange({ method: 'set', nofocus: true }, 2);
 $('input[name="example"]').textrange({ method: 'get', nofocus: true }, 'start');
 ```
 
+* `method` (defaults to `'get'`): One of the methods above.
 * `nofocus`: Do not call `.focus()` on the dom element. See [PR
-  #20](https://github.com/dwieeb/jquery-textrange/pull/20).
+  20](https://github.com/dwieeb/jquery-textrange/pull/20).
