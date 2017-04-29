@@ -131,4 +131,4 @@ $('input[name="example"]').textrange({ method: 'get', nofocus: true }, 'start');
 
 * `method` (defaults to `'get'`): One of the methods above.
 * `nofocus`: Do not call `.focus()` on the dom element. See [PR
-  20](https://github.com/dwieeb/jquery-textrange/pull/20).
+  #20](https://github.com/dwieeb/jquery-textrange/pull/20).
