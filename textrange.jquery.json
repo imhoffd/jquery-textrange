@@ -22,7 +22,7 @@
   "author": {
     "name": "Daniel Imhoff",
     "email": "dwieeb@gmail.com",
-    "url": "http://www.danielimhoff.com"
+    "url": "https://www.dwieeb.com"
   },
   "licenses": [
     {
@@ -31,9 +31,9 @@
     }
   ],
   "bugs": "",
-  "homepage": "http://dwieeb.github.com/jquery-textrange",
+  "homepage": "https://dwieeb.github.com/jquery-textrange",
   "docs": "https://github.com/dwieeb/jquery-textrange/wiki",
-  "demo": "http://dwieeb.github.com/jquery-textrange",
+  "demo": "https://dwieeb.github.com/jquery-textrange",
   "dependencies": {
     "jquery": ">=1.3"
   }

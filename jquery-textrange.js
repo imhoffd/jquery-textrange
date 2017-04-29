@@ -4,7 +4,7 @@
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
  * See the [README](https://github.com/dwieeb/jquery-textrange/blob/1.x/README.md) for usage and examples.
  *
- * (c) 2012-2017 Daniel Imhoff <dwieeb@gmail.com> - danielimhoff.com
+ * (c) 2012-2017 Daniel Imhoff <dwieeb@gmail.com> - dwieeb.com
  */
 
 (function(factory) {
@@ -48,7 +48,7 @@
 		 * @param (optional) start
 		 * @param (optional) length
 		 *
-		 * @see http://php.net/manual/en/function.substr.php
+		 * @see https://secure.php.net/manual/en/function.substr.php
 		 */
 		set: function(start, length) {
 			var s = parseInt(start),

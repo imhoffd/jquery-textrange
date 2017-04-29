@@ -1,43 +1,40 @@
-This jQuery plugin is for easily finding the starting and ending positions of selected text in text fields and textareas. It can also be used to set the selection, and replace the selection with given text (or insert text wherever the cursor is in the text field or textarea).
+This jQuery plugin is for easily finding the starting and ending positions of
+selected text in text fields and textareas. It can also be used to set the
+selection, and replace the selection with given text (or insert text wherever
+the cursor is in the text field or textarea).
 
-* jquery-textrange may not work with WYSIWYG editors. See [issue #3](https://github.com/dwieeb/jquery-textrange/issues/3) and [this question](http://wordpress.stackexchange.com/questions/105961/insert-text-a-cursor-position-in-to-tinymce-text-editor).
+* jquery-textrange may not work with WYSIWYG editors. See [issue
+  #3](https://github.com/dwieeb/jquery-textrange/issues/3) and [this
+  question](https://wordpress.stackexchange.com/questions/105961/insert-text-a-cursor-position-in-to-tinymce-text-editor).
 
 ## Demo
 
-* http://dwieeb.github.com/jquery-textrange/
+* https://dwieeb.github.com/jquery-textrange/
 
 ## Browser Support
 
-Tested in the following major browsers:
-
-* Internet Explorer 5.5+
-* Firefox 2+
 * Chrome
+* Firefox
+* Microsoft Edge
+* *yes, even* Internet Explorer 5.5+
 
 ## Include
 
 Include the file directly using `<script>` tags:
 
 ```html
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="jquery-plugins/jquery-textrange.js"></script>
 ```
 
-Or, with RequireJS (**note**: jquery-textrange can be loaded through any [UMD](https://github.com/umdjs/umd/blob/master/README.md)-compatible Javascript Module Loader):
-
-```javascript
-requirejs.config({
-    "baseUrl": "lib",
-    "paths": {
-        "jquery": "//code.jquery.com/jquery-latest.min.js",
-        "jquery-textrange": "jquery-plugins/jquery-textrange"
-    }
-});
-```
+:memo: *note*: jquery-textrange can be loaded through any
+[UMD](https://github.com/umdjs/umd/blob/master/README.md)-compatible Javascript
+Module Loader.
 
 ## Methods
 
-You can use this method to get all the information on the selected text of an element or a specific bit of information.
+You can use this method to get all the information on the selected text of an
+element or a specific bit of information.
 
 ### 'get'
 
@@ -77,11 +74,15 @@ var start = $('input[name="example"]').textrange('get', 'start');
 
 ### 'set'
 
-You can use this method to set the starting and ending locations of the selected text in an element.
+You can use this method to set the starting and ending locations of the
+selected text in an element.
 
-It works much like [PHP's substr()](http://php.net/manual/en/function.substr.php) and [Ruby's String#slice](http://ruby-doc.org/core-2.0/String.html#method-i-slice), so if you're familiar with one of those, it should be a breeze! Here are some examples, anyway.
+It works much like [PHP's
+substr()](https://secure.php.net/manual/en/function.substr.php), so if you're
+familiar with that, it should be a breeze! Here are some examples, anyway.
 
-For the following examples, let's say `input[name="example"]` contains the text `abcdef`.
+For the following examples, let's say `input[name="example"]` contains the text
+`abcdef`.
 
 ```javascript
 $('input[name="example"]').textrange('set'); // selects "abcdef" (select all)
@@ -93,7 +94,8 @@ $('input[name="example"]').textrange('set', -2, 1); // selects "e"
 $('input[name="example"]').textrange('set', -4, -1); // selects "cde"
 ```
 
-If you're looking to set the cursor at one specific location, you can use `0` for length, or you can use `$().textrange('setcursor')` (see below).
+If you're looking to set the cursor at one specific location, you can use `0`
+for length, or you can use `$().textrange('setcursor')` (see below).
 
 ### 'setcursor'
 
@@ -107,18 +109,11 @@ $('input[name="example"]').textrange('setcursor', 5);
 
 ### 'replace'
 
-You can use this method to replace the selection with given text. 
+You can use this method to replace the selection with given text.
 
 ```javascript
 $('input[name="example"]').textrange('replace', 'some text');
 ```
 
-There is also an `insert` alias for `replace` if you're using this method to insert text at the cursor location. They work the same way.
-
-## Minified Version
-A minified version of this plugin can be generated using UglifyJS during your build process or via CLI tools:
-
-```bash
-npm i -g uglify-js
-uglifyjs jquery-textrange.js > jquery-textrange.min.js
-```
+There is also an `insert` alias for `replace` if you're using this method to
+insert text at the cursor location. They work the same way.
